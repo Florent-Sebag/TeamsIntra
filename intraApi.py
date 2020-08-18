@@ -3,8 +3,8 @@ from datetime import timedelta
 from ApiRequests import launchGetRequest
 
 INTRA_URL = "https://intra.epitech.eu/"
-AUTOLOGIN_URL = "auth-4480553ba869735e3d876d27e411c916a8ca4adf/"
-PLANNING_URL = "planning/load"
+AUTOLOGIN_ID = "auth-4480553ba869735e3d876d27e411c916a8ca4adf"
+PLANNING_URL = "/planning/load"
 
 def formatIntraParams(nb_days) :
     today = date.today()
@@ -19,7 +19,7 @@ def formatIntraParams(nb_days) :
     return (res)
 
 def requestIntraPlanning():
-    url = INTRA_URL + AUTOLOGIN_URL + PLANNING_URL
+    url = INTRA_URL + AUTOLOGIN_ID + PLANNING_URL
     params = formatIntraParams(14)
 
     return launchGetRequest(url, params)

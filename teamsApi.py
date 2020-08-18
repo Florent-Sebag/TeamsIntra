@@ -1,8 +1,10 @@
 from ApiRequests import launchPostRequest
 import datetime
+import json
 from pprint import pprint
 
-WEBHOOK_URL = "https://outlook.office.com/webhook/de4254ef-bccf-42b7-b0ec-dec271a5c70a@901cb4ca-b862-4029-9306-e5cd0f6d9f86/IncomingWebhook/d840e4a8d10d424bbf36f190622a7e26/60496e1b-99a2-4343-8e32-cc1272f4d058"
+WEBHOOK_URL = "https://outlook.office.com/webhook/de4254ef-bccf-42b7-b0ec-dec271a5c70a@901cb4ca-b862-4029-9306-e5cd0f6d9f86/IncomingWebhook/"
+WEBHOOK_END_URL = "/60496e1b-99a2-4343-8e32-cc1272f4d058"
 
 def setSummary(isNewActivity):
     if isNewActivity :
@@ -49,17 +51,24 @@ def formatTeamsRequest(activity, summary):
 
     return request
 
-
-
-def createRequest(activity, summary):
+def createRequest(activity, summary, urls):
     body = formatTeamsRequest(activity, summary)
-    launchPostRequest(WEBHOOK_URL, body)
 
-def sendAllActivities(activities, summary):
+    module_url_id = urls[activity["codemodule"]]
+    url = WEBHOOK_URL + module_url_id + WEBHOOK_END_URL
+    
+    launchPostRequest(url, body)
+
+def sendAllActivities(activities, summary, urls):
     for elem in activities :
-        createRequest(elem, summary)
+        createRequest(elem, summary, urls)
+
+def load_urls() :
+    with open('url.json') as json_file:
+        return json.load(json_file)
 
 def sendActivities(modified_activities, new_activities):
-    sendAllActivities(new_activities, setSummary(True))
-    sendAllActivities(modified_activities, setSummary(False))
+    urls = load_urls()
+    sendAllActivities(new_activities, setSummary(True), urls)
+    sendAllActivities(modified_activities, setSummary(False), urls)
 

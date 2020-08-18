@@ -22,11 +22,10 @@ def getNewActivities(new_planning) :
     new_planning = tmp
     
     return (findNewModifiedActivites(old_planning, new_planning))
+   
     
-
 # Request from Intra API the actual planning between today and in two weeks
 planning = requestIntraPlanning()
-
 # Get old planning & compare to new
 # save all differences in new dictionnary
 # save date differencies on an other dictionnary

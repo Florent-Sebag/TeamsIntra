@@ -7,6 +7,4 @@ def launchGetRequest(url, parameters) :
 
 def launchPostRequest(url, body) :
     request = requests.post(url, json=body)
-    print(request.headers)
-    print(request.text)
 

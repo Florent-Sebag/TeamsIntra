@@ -48,11 +48,4 @@ def findNewModifiedActivites(old_planning, new_planning):
             new_activites.append(new_elem)
 
     modified_activities = find_modified_activities(old_planning, new_activites)
-    pprint(modified_activities)
-    print("\n\n")
-    pprint(new_activites)
     return (modified_activities, new_activites)
-
-
-
-        
